@@ -13,7 +13,7 @@ const { mobile } = useDisplay()
         <v-col cols="12" md="6" class="mx-auto">
           <v-card class="mx-auto" elevation="24">
             <v-card-title class="text-center">
-              <v-img src="/public/images/logo.jpg" :height="mobile ? '400px' : '200px'"></v-img>
+              <v-img src="/images/logo.jpg" :height="mobile ? '400px' : '200px'"></v-img>
               <h3 class="font-weight-black">Migz Thriftshop</h3>
               <p>Register Form</p>
             </v-card-title>

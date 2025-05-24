@@ -7,6 +7,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'Splash',
+      component: () => import('@/views/SplashView.vue'),
+    },
+    {
+      path: '/login',
       name: 'login',
       component: LoginView,
     },
