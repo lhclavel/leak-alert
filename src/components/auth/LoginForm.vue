@@ -3,7 +3,6 @@ import { ref } from 'vue'
 const show = ref(false)
 const password = ref('')
 </script>
-
 <template>
   <v-form fast-fail @submit.prevent>
     <v-text-field
@@ -40,29 +39,46 @@ const password = ref('')
       >
     </div>
 
-    <v-btn class="mt-2 mb-2" type="submit" block color="primary">Sign In</v-btn>
+    <v-btn class="mt-2 mb-2 same-height-btn" type="submit" block color="primary">Sign In</v-btn>
 
-    <div class="d-flex align-center my-2">
+    <div class="d-flex align-center my-6">
       <v-divider class="flex-grow-1"></v-divider>
-      <span class="mx-2 text-caption">Or With</span>
-      <v-divider class="flex-grow-1"></v-divider>
+      <span class="mx-1 text-caption">or</span>
+      <span class="mx-1 text-caption">with</span> <v-divider class="flex-grow-1"></v-divider>
     </div>
 
-    <v-btn block color="blue darken-4" class="mb-2" prepend-icon="mdi-facebook">
+    <v-btn
+      block
+      color="primary"
+      class="mb-6 same-height-btn"
+      prepend-icon="mdi-facebook"
+      style="border-radius: 10px"
+    >
       Sign Up with Facebook
     </v-btn>
-    <v-btn block color="white" class="mb-2 text-black" prepend-icon="mdi-google">
+    <v-btn
+      block
+      color="white"
+      class="mb-6 text-black same-height-btn google-btn"
+      prepend-icon="mdi-google"
+      style="border-radius: 10px"
+    >
       Sign Up with Google
     </v-btn>
   </v-form>
 </template>
 
 <style scoped>
-.v-text-field--outlined .v-field__outline__start,
-.v-text-field--outlined .v-field__outline__end,
-.v-text-field--outlined .v-field__outline__notch {
-  border-color: #000 !important;
-  border-width: 2px !important;
-  border-radius: 8px !important;
+.v-btn {
+  text-transform: none !important;
+}
+.same-height-btn {
+  height: 40px !important;
+  min-height: 50px !important;
+  font-size: 1rem;
+}
+
+.google-btn {
+  border: 1px solid #000 !important;
 }
 </style>
