@@ -5,26 +5,35 @@ const password = ref('')
 </script>
 <template>
   <v-form fast-fail @submit.prevent>
-    <v-text-field
-      label="Email"
-      variant="outlined"
-      class="mb-2"
-      prepend-inner-icon="mdi-email"
-      type="email"
-      required
-    ></v-text-field>
+    <div class="mb-1">
+      <label class="custom-label" for="login-email">Email</label>
+      <v-text-field
+        id="login-email"
+        label=""
+        placeholder="example@gmail.com"
+        variant="outlined"
+        class="my-1"
+        prepend-inner-icon="mdi-email"
+        type="email"
+        required
+      ></v-text-field>
+    </div>
 
-    <v-text-field
-      label="Password"
-      variant="outlined"
-      class="mb-2"
-      prepend-inner-icon="mdi-lock"
-      :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show ? 'text' : 'password'"
-      @click:append-inner="show = !show"
-      required
-      v-model="password"
-    ></v-text-field>
+    <div class="mb-1">
+      <label class="custom-label" for="login-password">Password</label>
+      <v-text-field
+        id="login-password"
+        label=""
+        variant="outlined"
+        class="my-1"
+        prepend-inner-icon="mdi-lock"
+        :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="show ? 'text' : 'password'"
+        @click:append-inner="show = !show"
+        required
+        v-model="password"
+      ></v-text-field>
+    </div>
 
     <div class="d-flex justify-space-between align-center mb-2">
       <v-checkbox
@@ -80,5 +89,14 @@ const password = ref('')
 
 .google-btn {
   border: 1px solid #000 !important;
+}
+
+/* Fix for black border and rounded corners on Vuetify 3 outlined text fields */
+.v-text-field--outlined .v-field__outline {
+  border-radius: 30px !important;
+  border-color: #000 !important;
+  border-width: 1.5px !important;
+  /* fallback for browsers that support border shorthand */
+  border-style: solid !important;
 }
 </style>
