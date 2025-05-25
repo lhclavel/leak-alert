@@ -1,10 +1,21 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 const show = ref(false)
 const password = ref('')
+const router = useRouter()
+
+// Handle form submit
+function onSubmit() {
+  // Here you can add actual login validation/authentication if needed
+  // For now, just navigate to dashboard on submit
+  router.push('/dashboard')
+}
 </script>
+
 <template>
-  <v-form fast-fail @submit.prevent>
+  <v-form fast-fail @submit.prevent="onSubmit">
     <div class="mb-1">
       <label class="custom-label" for="login-email">Email</label>
       <v-text-field
@@ -55,8 +66,9 @@ const password = ref('')
       block
       color="primary"
       style="border-radius: 10px"
-      >Log In</v-btn
     >
+      Log In
+    </v-btn>
 
     <div class="d-flex align-center my-6">
       <v-divider class="flex-grow-1"></v-divider>
