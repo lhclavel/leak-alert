@@ -9,10 +9,9 @@ const password = ref('')
       <label class="custom-label" for="login-email">Email</label>
       <v-text-field
         id="login-email"
-        label=""
         placeholder="example@gmail.com"
         variant="outlined"
-        class="my-1"
+        class="my-1 rounded-input"
         prepend-inner-icon="mdi-email"
         type="email"
         required
@@ -23,9 +22,8 @@ const password = ref('')
       <label class="custom-label" for="login-password">Password</label>
       <v-text-field
         id="login-password"
-        label=""
         variant="outlined"
-        class="my-1"
+        class="my-1 rounded-input"
         prepend-inner-icon="mdi-lock"
         :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
         :type="show ? 'text' : 'password'"
@@ -48,7 +46,7 @@ const password = ref('')
       >
     </div>
 
-    <v-btn class="mt-2 mb-2 same-height-btn" type="submit" block color="primary">Sign In</v-btn>
+    <v-btn class="mt-2 mb-2 same-height-btn" type="submit" block color="primary">Log In</v-btn>
 
     <div class="d-flex align-center my-6">
       <v-divider class="flex-grow-1"></v-divider>
@@ -63,7 +61,7 @@ const password = ref('')
       prepend-icon="mdi-facebook"
       style="border-radius: 10px"
     >
-      Sign Up with Facebook
+      Log In with Facebook
     </v-btn>
     <v-btn
       block
@@ -72,7 +70,7 @@ const password = ref('')
       prepend-icon="mdi-google"
       style="border-radius: 10px"
     >
-      Sign Up with Google
+      Log In with Google
     </v-btn>
   </v-form>
 </template>
@@ -91,12 +89,20 @@ const password = ref('')
   border: 1px solid #000 !important;
 }
 
-/* Fix for black border and rounded corners on Vuetify 3 outlined text fields */
-.v-text-field--outlined .v-field__outline {
-  border-radius: 30px !important;
-  border-color: #000 !important;
-  border-width: 1.5px !important;
-  /* fallback for browsers that support border shorthand */
-  border-style: solid !important;
+/* Updated styles for even border radius */
+.rounded-input :deep(.v-field__outline) {
+  border-radius: 10px !important;
+}
+
+.rounded-input :deep(.v-field) {
+  border-radius: 10px !important;
+}
+
+.rounded-input :deep(.v-field__input) {
+  padding-left: 12px !important;
+}
+
+.rounded-input :deep(.v-input__prepend) {
+  margin-right: 4px !important;
 }
 </style>
