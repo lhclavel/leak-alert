@@ -1,38 +1,26 @@
 <script setup>
-import AppLayout from '@/components/layout/AppLayout.vue'
+import AppHeader from '@/components/layout/AppHeader.vue'
 import RegisterForm from '@/components/auth/RegisterForm.vue'
-import { useDisplay } from 'vuetify'
-
-const { mobile } = useDisplay()
 </script>
 
 <template>
-  <AppLayout>
-    <template #content>
-      <v-row>
-        <v-col cols="12" md="6" class="mx-auto">
-          <v-card class="mx-auto" elevation="24">
-            <v-card-title class="text-center">
-              <v-img src="/images/logo.jpg" :height="mobile ? '400px' : '200px'"></v-img>
-              <h3 class="font-weight-black">Migz Thriftshop</h3>
-              <p>Register Form</p>
-            </v-card-title>
+  <div>
+    <AppHeader />
+    <v-col cols="11" md="6" class="mx-auto">
+      <v-card class="py-6" elevation="0">
+        <div class="text-center">
+          <h2 class="mb-6 font-weight-bold">Create an Account</h2>
+        </div>
 
-            <v-card-text class="bg-surface-light pt-4">
-              <v-divider class="my-5"></v-divider>
+        <RegisterForm />
 
-              <RegisterForm> </RegisterForm>
-
-              <v-divider class="my-5"></v-divider>
-
-              <h5 class="text-center">
-                Already have an account?
-                <RouterLink class="text-primary" to="/">Click here to login</RouterLink>
-              </h5>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </template>
-  </AppLayout>
+        <p class="text-center">
+          Already have an account?
+          <RouterLink to="/login" class="text-primary" style="text-decoration: none"
+            >Login</RouterLink
+          >
+        </p>
+      </v-card>
+    </v-col>
+  </div>
 </template>
