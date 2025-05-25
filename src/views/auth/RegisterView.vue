@@ -14,12 +14,12 @@ import RegisterForm from '@/components/auth/RegisterForm.vue'
 
         <RegisterForm />
 
-        <p class="text-center">
+        <h4 class="text-center">
           Already have an account?
           <RouterLink to="/login" class="text-primary" style="text-decoration: none"
             >Login</RouterLink
           >
-        </p>
+        </h4>
       </v-card>
     </v-col>
   </div>
