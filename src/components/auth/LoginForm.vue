@@ -41,17 +41,28 @@ const password = ref('')
         class="ma-0 pa-0"
         style="margin-left: -10px"
       ></v-checkbox>
-      <RouterLink class="text-primary text-caption" to="/forgot-password"
+      <RouterLink
+        class="text-primary text-caption"
+        style="text-decoration: none"
+        to="/forgot-password"
         >Forgot Password?</RouterLink
       >
     </div>
 
-    <v-btn class="mt-2 mb-2 same-height-btn" type="submit" block color="primary">Log In</v-btn>
+    <v-btn
+      class="my-3 same-height-btn"
+      type="submit"
+      block
+      color="primary"
+      style="border-radius: 10px"
+      >Log In</v-btn
+    >
 
     <div class="d-flex align-center my-6">
       <v-divider class="flex-grow-1"></v-divider>
       <span class="mx-1 text-caption">or</span>
-      <span class="mx-1 text-caption">with</span> <v-divider class="flex-grow-1"></v-divider>
+      <span class="mx-1 text-caption">with</span>
+      <v-divider class="flex-grow-1"></v-divider>
     </div>
 
     <v-btn
@@ -67,9 +78,13 @@ const password = ref('')
       block
       color="white"
       class="mb-6 text-black same-height-btn google-btn"
-      prepend-icon="mdi-google"
       style="border-radius: 10px"
     >
+      <img
+        src="/images/google-logo.png"
+        alt="Google"
+        style="width: 18px; height: 18px; margin-right: 8px"
+      />
       Log In with Google
     </v-btn>
   </v-form>
