@@ -72,8 +72,8 @@ function onSubmit() {
 
     <div class="d-flex align-center my-6">
       <v-divider class="flex-grow-1"></v-divider>
-      <span class="mx-1 text-caption">or</span>
-      <span class="mx-1 text-caption">with</span>
+      <span class="mx-1 text-caption">Or</span>
+      <span class="mx-1 text-caption">With</span>
       <v-divider class="flex-grow-1"></v-divider>
     </div>
 

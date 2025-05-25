@@ -39,7 +39,7 @@ function logout() {
   display: flex;
   justify-content: space-between; /* align left and right */
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: #fff;
   letter-spacing: 0.5px;
