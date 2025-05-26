@@ -22,10 +22,16 @@ function logout() {
       <!-- Sidebar menu -->
       <div :class="['sidebar', { 'sidebar-open': isSidebarOpen }]">
         <ul>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">Notifications</a></li>
+          <li>
+            <a href="#"> <span class="mdi mdi-account-outline me-2"></span>Profile</a>
+          </li>
+          <li>
+            <a href="#"> <span class="mdi mdi-bell-outline me-2"></span>Notifications</a>
+          </li>
           <v-divider class="my-5"></v-divider>
-          <li><a href="#" @click.prevent="logout">Logout</a></li>
+          <li>
+            <a href="#" @click.prevent="logout"> <span class="mdi mdi-logout me-2"></span>Logout</a>
+          </li>
         </ul>
       </div>
     </div>
