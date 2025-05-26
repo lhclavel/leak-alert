@@ -1,18 +1,37 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router' // Import Vue Router
 import AppHeader from '@/components/layout/AppHeader.vue'
 
 // Dashboard state
 const currentTab = ref('home')
+const showCreateButton = ref(false)
 
-// Sample data - you can replace with real data
-const leakStatus = ref('No leaks detected')
-const batteryLevel = ref(85)
-const lastUpdate = ref('2 minutes ago')
+// Router instance
+const router = useRouter()
 
 // Tab switching function
 const setActiveTab = (tab) => {
   currentTab.value = tab
+}
+
+// Add button functionality
+const toggleCreateButton = () => {
+  showCreateButton.value = !showCreateButton.value
+}
+
+const showCreate = () => {
+  showCreateButton.value = true
+}
+
+const hideCreate = () => {
+  showCreateButton.value = false
+}
+
+const handleCreate = () => {
+  // Navigate to CreateView
+  router.push('/create') // Replace '/create' with the actual route path for CreateView
+  showCreateButton.value = false
 }
 </script>
 
@@ -59,10 +78,21 @@ const setActiveTab = (tab) => {
       <button
         class="nav-btn add-btn"
         :class="{ active: currentTab === 'add' }"
-        @click="setActiveTab('add')"
+        @click="toggleCreateButton"
+        @mouseenter="!showCreateButton && showCreate()"
+        @mouseleave="!showCreateButton && hideCreate()"
       >
         <div class="add-button">
-          <span class="nav-icon">+</span>
+          <span class="nav-icon" :class="{ rotated: showCreateButton }">+</span>
+        </div>
+
+        <!-- Create Button Popup -->
+        <div
+          class="create-popup my-1"
+          :class="{ visible: showCreateButton }"
+          @click.stop="handleCreate"
+        >
+          <span class="create-text">Create</span>
         </div>
       </button>
 
@@ -208,31 +238,77 @@ const setActiveTab = (tab) => {
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(10px);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.add-btn:hover .add-button {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .add-button .nav-icon {
   font-size: 24px;
   color: white;
   margin-bottom: 0;
+  transition: transform 0.2s ease;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 600px) {
-  .main-content {
-    padding: 12px;
-  }
+.nav-icon.rotated {
+  transform: rotate(45deg);
+}
 
-  .logo-image {
-    width: 100px;
-    height: 100px;
-  }
+.add-btn:hover .nav-icon:not(.rotated) {
+  transform: rotate(90deg);
+}
 
-  .status-text {
-    font-size: 1rem;
-  }
+/* Create Button Popup */
+.create-popup {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: #1976d2;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
 
-  .card-content {
-    padding: 24px;
-  }
+.create-popup::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #1976d2;
+}
+
+.create-popup.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.create-popup:hover {
+  background: #1565c0;
+  transform: translateX(-50%) translateY(-8px) scale(1.05);
+}
+
+.create-text {
+  display: block;
 }
 </style>
