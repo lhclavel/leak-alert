@@ -6,13 +6,13 @@ import AppHeader from '@/components/layout/AppHeader.vue'
 // Dashboard state
 const currentTab = ref('home')
 const showCreateButton = ref(false)
-
-// Router instance
 const router = useRouter()
 
-// Tab switching function
 const setActiveTab = (tab) => {
   currentTab.value = tab
+  if (tab === 'settings') {
+    router.push('/settings') // Navigate to the SettingsView
+  }
 }
 
 // Add button functionality
@@ -85,7 +85,7 @@ const handleCreate = () => {
           :class="{ visible: showCreateButton }"
           @click.stop="handleCreate"
         >
-          <span class="create-text">Create Report</span>
+          <span class="create-text">Create</span>
         </div>
       </button>
 

@@ -3,6 +3,7 @@ import LoginView from '@/views/auth/LoginView.vue'
 import RegisterView from '@/views/auth/RegisterView.vue'
 import DashboardView from '@/views/system/DashboardView.vue'
 import CreateView from '@/views/system/CreateView.vue'
+import SettingsView from '@/views/system/SettingsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/create',
       name: 'create',
       component: CreateView,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsView,
     },
   ],
 })
