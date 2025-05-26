@@ -23,7 +23,7 @@ function logout() {
       <div :class="['sidebar', { 'sidebar-open': isSidebarOpen }]">
         <ul>
           <li>
-            <a href="#"> <span class="mdi mdi-account-outline me-2"></span>Profile</a>
+            <a href="#"> <span class="mdi mdi-account-circle-outline me-2"></span>Profile</a>
           </li>
           <li>
             <a href="#"> <span class="mdi mdi-bell-outline me-2"></span>Notifications</a>
@@ -105,6 +105,13 @@ function logout() {
   font-size: 1rem; /* Medium font size for list items */
   margin: 4px 12px; /* Add vertical spacing between items */
   border-radius: 4px; /* Add rounded corners for hover effect */
+  display: flex; /* Align icon and text horizontally */
+  align-items: center;
+}
+
+.sidebar li .mdi {
+  margin-right: 8px; /* Add space between the icon and text */
+  font-size: 1.5rem; /* Set medium size for icons */
 }
 
 .sidebar li:hover {
@@ -114,9 +121,9 @@ function logout() {
 .sidebar a {
   text-decoration: none;
   color: #333;
-  display: block;
+  display: flex; /* Align icon and text horizontally */
+  align-items: center;
 }
-
 /* Sidebar open state */
 .sidebar-open {
   right: 0; /* Slide into view */
