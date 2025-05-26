@@ -20,11 +20,11 @@ function logout() {
     <div class="menu-container">
       <button class="menu-btn" @click="toggleSidebar" aria-label="Menu">☰</button>
       <!-- Sidebar menu -->
-      <div v-if="isSidebarOpen" class="sidebar">
+      <div :class="['sidebar', { 'sidebar-open': isSidebarOpen }]">
         <ul>
           <li><a href="#">Profile</a></li>
           <li><a href="#">Notifications</a></li>
-          <!-- Updated Logout link -->
+          <v-divider class="my-5"></v-divider>
           <li><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
       </div>
@@ -67,22 +67,25 @@ function logout() {
   background: transparent;
   border: none;
   font-size: 1.5rem;
-  color: #fff;
+  color: #000000;
   cursor: pointer;
+  position: relative; /* Ensure it stays above the sidebar */
+  z-index: 1101; /* Higher than the sidebar */
 }
 
 /* Sidebar styles */
 .sidebar {
-  position: absolute;
-  top: 100%;
-  right: 16px; /* align with header padding */
-  width: 160px;
-  background: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 10px 0;
-  z-index: 1000;
-  border-radius: 4px;
+  position: fixed; /* Make it fixed to cover the screen */
+  top: 0;
+  right: -250px; /* Start off-screen */
+  height: 100%; /* Full height */
+  width: 250px; /* Adjust width as needed */
+  background: #2196f3;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  padding: 50px 0 20px; /* Add padding at the top to push content down */
+  z-index: 1000; /* Lower than the menu button */
+  border-radius: 0; /* Remove border-radius for full coverage */
+  transition: right 0.3s ease; /* Add smooth transition */
 }
 
 .sidebar ul {
@@ -92,8 +95,10 @@ function logout() {
 }
 
 .sidebar li {
-  padding: 10px 20px;
-  font-size: 1rem; /* medium font size for list items */
+  padding: 8px 16px; /* Adjust padding for better spacing */
+  font-size: 1rem; /* Medium font size for list items */
+  margin: 4px 12px; /* Add vertical spacing between items */
+  border-radius: 4px; /* Add rounded corners for hover effect */
 }
 
 .sidebar li:hover {
@@ -104,5 +109,10 @@ function logout() {
   text-decoration: none;
   color: #333;
   display: block;
+}
+
+/* Sidebar open state */
+.sidebar-open {
+  right: 0; /* Slide into view */
 }
 </style>
