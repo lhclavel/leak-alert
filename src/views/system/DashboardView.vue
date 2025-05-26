@@ -20,14 +20,6 @@ const toggleCreateButton = () => {
   showCreateButton.value = !showCreateButton.value
 }
 
-const showCreate = () => {
-  showCreateButton.value = true
-}
-
-const hideCreate = () => {
-  showCreateButton.value = false
-}
-
 const handleCreate = () => {
   // Navigate to CreateView
   router.push('/create') // Replace '/create' with the actual route path for CreateView
@@ -42,14 +34,17 @@ const handleCreate = () => {
 
     <!-- Main Content -->
     <div class="main-content">
+      <!-- Logo Section -->
+      <div class="logo-section">
+        <div class="logo-container">
+          <img src="/images/logo1.png" alt="LeakAlert Logo" class="logo-image" />
+        </div>
+        <h1 class="welcome-text">Welcome to LeakAlert!</h1>
+      </div>
+
       <!-- Status Card -->
       <div class="status-card">
         <div class="card-content">
-          <!-- Logo -->
-          <div class="logo-container">
-            <img src="/images/logo1.png" alt="LeakAlert Logo" class="logo-image" />
-          </div>
-
           <!-- Status Text -->
           <h3 class="status-text">{{ leakStatus }}</h3>
           <p class="last-update">Last updated: {{ lastUpdate }}</p>
@@ -79,8 +74,6 @@ const handleCreate = () => {
         class="nav-btn add-btn"
         :class="{ active: currentTab === 'add' }"
         @click="toggleCreateButton"
-        @mouseenter="!showCreateButton && showCreate()"
-        @mouseleave="!showCreateButton && hideCreate()"
       >
         <div class="add-button">
           <span class="nav-icon" :class="{ rotated: showCreateButton }">+</span>
@@ -92,7 +85,7 @@ const handleCreate = () => {
           :class="{ visible: showCreateButton }"
           @click.stop="handleCreate"
         >
-          <span class="create-text">Create</span>
+          <span class="create-text">Create Report</span>
         </div>
       </button>
 
@@ -120,8 +113,9 @@ const handleCreate = () => {
   flex: 1;
   padding: 16px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* Align content to the top */
 }
 
 .status-card {
@@ -131,6 +125,7 @@ const handleCreate = () => {
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  margin-top: 16px; /* Add spacing between the welcome text and the card */
 }
 
 .card-content {
@@ -138,7 +133,13 @@ const handleCreate = () => {
   text-align: center;
 }
 
+.logo-section {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
 .logo-container {
+  margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,9 +147,9 @@ const handleCreate = () => {
 }
 
 .logo-image {
-  width: 120px;
-  height: 120px;
-  max-width: 120px;
+  width: 250px;
+  height: 250px;
+  max-width: 400px;
   object-fit: contain;
 }
 
