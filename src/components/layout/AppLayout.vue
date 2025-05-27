@@ -1,19 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import AppLayout from '@/components/layout/AppLayout.vue'
 import AppHeader from './AppHeader.vue'
 
 // Theme state
-const theme = ref('light')
 const currentTab = ref('home')
 const showCreateButton = ref(false)
 const router = useRouter()
-
-// Theme toggle
-function onClick() {
-  theme.value = theme.value === 'light' ? 'dark' : 'light'
-}
 
 // Bottom navigation functions
 const setActiveTab = (tab) => {
@@ -37,7 +30,7 @@ const handleCreate = () => {
 
 <template>
   <v-responsive>
-    <v-app :theme="theme">
+    <v-app>
       <AppHeader></AppHeader>
       <v-main>
         <v-container>
