@@ -20,6 +20,22 @@ const user = {
   avatar: '/path/to/your/avatar.jpg',
 }
 
+// Add FAQ data
+const faqs = ref([
+  {
+    question: 'What is Leak Alert?',
+    answer: 'Leak Alert is a system that notifies users about water or gas leaks in real-time.',
+  },
+  {
+    question: 'How do I report a leak?',
+    answer: 'Go to the dashboard and click on "Report a Leak" to submit details.',
+  },
+  {
+    question: 'Can I reset my password?',
+    answer: 'Yes, click on "Forgot Password?" on the login page to reset it.',
+  },
+])
+
 function triggerFileUpload() {
   fileInput.value.click()
 }
@@ -74,6 +90,14 @@ function onFileChange(event) {
           <li>
             <a href="#" @click.prevent="logout"> <span class="mdi mdi-logout me-2"></span>Logout</a>
           </li>
+          <v-divider class="my-5"></v-divider>
+          <div class="faq-section">
+            <h3 class="text-subtitle-1 text-white font-weight-medium px-4 mb-3 text-center">FAQ</h3>
+            <div v-for="faq in faqs" :key="faq.question" class="faq-item">
+              <p class="faq-question">{{ faq.question }}</p>
+              <p class="faq-answer">{{ faq.answer }}</p>
+            </div>
+          </div>
         </ul>
       </div>
     </div>
@@ -252,5 +276,37 @@ function onFileChange(event) {
 
 .close-btn:hover {
   transform: translateX(-4px);
+}
+
+.faq-section {
+  padding: 0 12px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.faq-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.faq-question {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  text-align: justify;
+}
+
+.faq-answer {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: justify;
 }
 </style>
