@@ -27,6 +27,31 @@ const notifications = ref([
     isUnread: false,
     type: 'success',
   },
+  {
+    id: 4,
+    title: 'Critical Leak Alert',
+    message: 'Major leak detected in Bathroom pipe, immediate action required',
+    time: '5 mins ago',
+    isUnread: true,
+    type: 'warning',
+  },
+
+  {
+    id: 5,
+    title: 'Maintenance Reminder',
+    message: 'Scheduled maintenance check due in 2 days',
+    time: '3 hours ago',
+    isUnread: false,
+    type: 'info',
+  },
+  {
+    id: 6,
+    title: 'Sensor Calibrated',
+    message: 'Water flow sensor has been successfully calibrated',
+    time: '2 days ago',
+    isUnread: false,
+    type: 'success',
+  },
 ])
 
 const markAsRead = (id) => {
