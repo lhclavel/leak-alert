@@ -65,57 +65,65 @@ const markAsRead = (id) => {
 <template>
   <AppLayout>
     <template #content>
-      <v-container class="notifications-container pa-4">
-        <h2 class="font-weight-bold mb-4">Notifications</h2>
+      <v-container class="notifications-container">
+        <!-- Header Section -->
+        <div class="header-section mb-6">
+          <h2 class="text-subtitle-4">Notifications</h2>
+          <p class="text-subtitle-2 text-medium-emphasis mt-1">
+            Stay updated with your leak alerts
+          </p>
+        </div>
 
+        <!-- Notifications List -->
         <v-list v-if="notifications.length" class="notifications-list">
           <v-list-item
             v-for="notification in notifications"
             :key="notification.id"
             :class="{ unread: notification.isUnread }"
             @click="markAsRead(notification.id)"
+            class="notification-item"
           >
             <template v-slot:prepend>
-              <v-icon
-                :color="
-                  notification.type === 'warning'
-                    ? 'warning'
-                    : notification.type === 'info'
-                      ? 'info'
-                      : 'success'
-                "
-                class="mr-3"
-              >
-                {{
-                  notification.type === 'warning'
-                    ? 'mdi-alert-circle'
-                    : notification.type === 'info'
-                      ? 'mdi-information'
-                      : 'mdi-check-circle'
-                }}
-              </v-icon>
+              <div :class="['notification-icon', notification.type]">
+                <v-icon size="20" color="white">
+                  {{
+                    notification.type === 'warning'
+                      ? 'mdi-alert'
+                      : notification.type === 'info'
+                        ? 'mdi-information'
+                        : 'mdi-check'
+                  }}
+                </v-icon>
+              </div>
             </template>
 
             <v-list-item-title
-              class="font-weight-medium"
+              class="text-subtitle-1 font-weight-medium mb-1"
               :class="{ 'text-primary': notification.isUnread }"
             >
               {{ notification.title }}
             </v-list-item-title>
 
-            <v-list-item-subtitle class="mt-1">
+            <v-list-item-subtitle class="text-body-2 text-medium-emphasis">
               {{ notification.message }}
             </v-list-item-subtitle>
 
             <template v-slot:append>
-              <span class="text-caption text-medium-emphasis">{{ notification.time }}</span>
+              <div class="d-flex flex-column align-end">
+                <span class="text-caption text-medium-emphasis">{{ notification.time }}</span>
+                <v-icon v-if="notification.isUnread" color="primary" size="8" class="mt-2"
+                  >mdi-circle</v-icon
+                >
+              </div>
             </template>
           </v-list-item>
         </v-list>
 
+        <!-- Empty State -->
         <div v-else class="empty-state">
-          <v-icon size="64" color="grey-lighten-1">mdi-bell-off</v-icon>
-          <p class="text-body-1 text-medium-emphasis mt-4">No notifications yet</p>
+          <v-icon size="64" color="grey-lighten-2">mdi-bell-sleep</v-icon>
+          <p class="text-body-1 text-medium-emphasis mt-4">All caught up!</p>
+          <p class="text-caption text-medium-emphasis">No new notifications</p>
         </div>
       </v-container>
     </template>
@@ -130,26 +138,72 @@ const markAsRead = (id) => {
 }
 
 .notifications-list {
-  border-radius: 8px;
-  overflow: hidden;
+  background: transparent !important;
 }
 
-.v-list-item {
-  margin-bottom: 8px;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
+.notification-item {
+  background: white;
+  margin-bottom: 25px;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
-.v-list-item.unread {
-  background-color: rgb(33, 150, 243, 0.05);
+.notification-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.notification-item.unread {
+  background: #f8faff;
+}
+
+.notification-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.notification-icon.warning {
+  background: #ff9800;
+}
+
+.notification-icon.info {
+  background: #2196f3;
+}
+
+.notification-icon.success {
+  background: #4caf50;
 }
 
 .empty-state {
   text-align: center;
-  padding: 48px 0;
+  padding: 64px 0;
+  background: white;
+  border-radius: 16px;
+  margin-top: 16px;
 }
 
-.v-list-item:hover {
-  background-color: rgb(33, 150, 243, 0.1);
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d1d1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b1b1b1;
 }
 </style>
