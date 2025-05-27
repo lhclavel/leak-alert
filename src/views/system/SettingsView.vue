@@ -109,7 +109,7 @@ const handleCreate = () => {
                       <v-icon>mdi-copyright</v-icon>
                     </template>
                     <v-list-item-title>Copyright</v-list-item-title>
-                    <v-list-item-subtitle>© 2024 LeakAlert</v-list-item-subtitle>
+                    <v-list-item-subtitle>© 2025 LeakAlert</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
               </v-card-text>
