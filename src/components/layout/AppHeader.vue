@@ -67,9 +67,6 @@ function onFileChange(event) {
               <v-btn variant="flat" class="edit-btn">Edit Profile</v-btn>
             </div>
           </div>
-          <li>
-            <a href="#"> <span class="mdi mdi-bell-outline me-2"></span>Notifications</a>
-          </li>
           <v-divider class="my-5"></v-divider>
           <li>
             <a href="#" @click.prevent="logout"> <span class="mdi mdi-logout me-2"></span>Logout</a>

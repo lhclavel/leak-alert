@@ -4,6 +4,7 @@ import RegisterView from '@/views/auth/RegisterView.vue'
 import DashboardView from '@/views/system/DashboardView.vue'
 import CreateView from '@/views/system/CreateView.vue'
 import SettingsView from '@/views/system/SettingsView.vue'
+import NotificationView from '@/views/system/NotificationView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,7 +16,7 @@ const router = createRouter({
     },
     {
       path: '/login',
-      name: 'login', // Removed slash
+      name: 'login',
       component: LoginView,
     },
     {
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: SettingsView,
+    },
+    {
+      path: '/notifications',
+      name: 'notifications',
+      component: NotificationView,
     },
   ],
 })

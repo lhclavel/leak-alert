@@ -51,7 +51,7 @@ const handleCreate = () => {
       <v-container fluid class="py-6">
         <v-row>
           <v-col>
-            <h1 class="text-h4 font-weight-bold mb-1">Settings</h1>
+            <h2 class="font-weight-bold mb-1">Settings</h2>
           </v-col>
         </v-row>
 

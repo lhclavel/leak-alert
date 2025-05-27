@@ -5,26 +5,17 @@ import AppHeader from './AppHeader.vue'
 
 // Theme state
 const currentTab = ref('home')
-const showCreateButton = ref(false)
 const router = useRouter()
 
-// Bottom navigation functions
 const setActiveTab = (tab) => {
   currentTab.value = tab
   if (tab === 'home') {
     router.push('/dashboard')
+  } else if (tab === 'notifications') {
+    router.push('/notifications')
   } else if (tab === 'settings') {
     router.push('/settings')
   }
-}
-
-const toggleCreateButton = () => {
-  showCreateButton.value = !showCreateButton.value
-}
-
-const handleCreate = () => {
-  router.push('/create')
-  showCreateButton.value = false
 }
 </script>
 
@@ -46,6 +37,14 @@ const handleCreate = () => {
           @click="setActiveTab('home')"
         >
           <v-icon class="nav-home">mdi-home</v-icon>
+        </button>
+
+        <button
+          class="nav-btn"
+          :class="{ active: currentTab === 'notifications' }"
+          @click="setActiveTab('notifications')"
+        >
+          <v-icon class="nav-notifications">mdi-bell</v-icon>
         </button>
 
         <button
