@@ -36,6 +36,27 @@ const leaks = ref([
     time: '1 hour ago',
     status: 'pending',
   },
+  {
+    id: 3,
+    location: 'Garden Sprinkler',
+    severity: 'Minor',
+    time: '2 hours ago',
+    status: 'active',
+  },
+  {
+    id: 4,
+    location: 'Basement Pipeline',
+    severity: 'Major',
+    time: '3 hours ago',
+    status: 'active',
+  },
+  {
+    id: 5,
+    location: 'Outdoor Faucet',
+    severity: 'Minor',
+    time: '4 hours ago',
+    status: 'pending',
+  },
 ])
 </script>
 
@@ -43,271 +64,207 @@ const leaks = ref([
   <AppLayout>
     <template #content>
       <div class="dashboard-container">
-        <!-- Header -->
-
-        <!-- Main Content -->
         <div class="main-content">
           <!-- Logo Section -->
           <div class="logo-section">
             <div class="logo-container">
               <img src="/images/logo1.png" alt="LeakAlert Logo" class="logo-image" />
             </div>
-            <h1 class="welcome-text">Welcome to LeakAlert!</h1>
+            <h1 class="text-h5 text-primary font-weight-medium mb-2">Welcome to LeakAlert!</h1>
+            <p class="text-subtitle- text-medium-emphasis">
+              Monitor your water system in real-time
+            </p>
           </div>
 
           <!-- Status Card -->
           <div class="status-card">
-            <div class="card-content">
-              <h3 class="status-text">{{ leakStatus }}</h3>
-              <p class="last-update">Last updated: {{ lastUpdate }}</p>
+            <div class="card-header">
+              <div>
+                <h3 class="text-h6 text-primary mb-1">{{ leakStatus }}</h3>
+                <p class="text-caption text-medium-emphasis">Last updated: {{ lastUpdate }}</p>
+              </div>
+              <v-chip color="primary" variant="flat" size="small">Live</v-chip>
+            </div>
 
-              <!-- Leak List -->
-              <div class="leak-list">
-                <div v-for="leak in leaks" :key="leak.id" class="leak-item">
-                  <div class="leak-header">
-                    <v-icon :color="leak.severity === 'Minor' ? 'warning' : 'error'" class="mr-2">
+            <!-- Leak List -->
+            <div class="leak-list">
+              <div v-for="leak in leaks" :key="leak.id" class="leak-item">
+                <div class="leak-content">
+                  <div class="leak-icon" :class="leak.severity.toLowerCase()">
+                    <v-icon size="20">
                       {{ leak.severity === 'Minor' ? 'mdi-alert' : 'mdi-alert-circle' }}
                     </v-icon>
-                    <span class="leak-location">{{ leak.location }}</span>
                   </div>
-                  <div class="leak-details">
-                    <span class="leak-severity" :class="leak.severity.toLowerCase()">
+                  <div class="leak-info">
+                    <div class="d-flex align-center justify-space-between mb-1">
+                      <span class="text-subtitle-2 font-weight-medium">{{ leak.location }}</span>
+                      <span class="text-caption text-medium-emphasis">{{ leak.time }}</span>
+                    </div>
+                    <v-chip
+                      size="x-small"
+                      :color="leak.severity === 'Minor' ? 'warning' : 'error'"
+                      variant="tonal"
+                      class="leak-severity"
+                    >
                       {{ leak.severity }}
-                    </span>
-                    <span class="leak-time">{{ leak.time }}</span>
+                    </v-chip>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- Floating Action Button -->
+        <button
+          class="floating-add-btn"
+          :class="{ active: showCreateButton }"
+          @click="toggleCreateButton"
+        >
+          <div class="add-button">
+            <v-icon>{{ showCreateButton ? 'mdi-close' : 'mdi-plus' }}</v-icon>
+          </div>
+        </button>
       </div>
-
-      <button
-        class="floating-add-btn"
-        :class="{ active: showCreateButton }"
-        @click="toggleCreateButton"
-      >
-        <div class="add-button">
-          <span class="nav-icon" :class="{ rotated: showCreateButton }">+</span>
-        </div>
-
-        <!-- Create Button Popup -->
-        <div class="create-popup" :class="{ visible: showCreateButton }" @click.stop="handleCreate">
-          <span class="create-text">Create</span>
-        </div>
-      </button>
     </template>
   </AppLayout>
 </template>
 
 <style scoped>
 .dashboard-container {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
-  background-color: #f5f5f5;
-  font-family: Arial, sans-serif;
+  background-color: #f8fafc;
+  padding-bottom: 80px;
 }
 
 .main-content {
-  flex: 1;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.status-card {
-  width: 100%;
-  max-width: 400px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-top: 16px;
-}
-
-.card-content {
-  padding: 28px;
-  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  padding-bottom: 100px; /* Add space for the floating button */
 }
 
 .logo-section {
   text-align: center;
-  margin-bottom: 16px;
-}
-
-.logo-container {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .logo-image {
-  width: 200px;
-  height: 200px;
-  max-width: 400px;
-  object-fit: contain;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 24px;
 }
 
-.status-text {
-  color: #333;
-  font-weight: 500;
-  font-size: 1.1rem;
-  margin: 16px 0 8px 0;
+.status-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-.last-update {
-  color: #666;
-  font-size: 0.9rem;
-  margin: 0 0 24px 0;
-}
-
-.quick-stats {
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f1f1f1;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.leak-list {
+  padding: 16px;
+  max-height: 300px; /* Limit height to prevent overlap */
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* Custom scrollbar styling */
+.leak-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leak-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.leak-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.leak-list::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+.leak-item {
+  padding: 12px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.leak-item:hover {
+  background-color: #f8fafc;
+}
+
+.leak-content {
+  display: flex;
+  align-items: flex-start;
   gap: 16px;
 }
 
-.stat-item {
+.leak-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
-  background: #f8f9fa;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  color: #666;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.battery-icon {
-  margin-right: 8px;
-  font-size: 1rem;
+.leak-icon.minor {
+  background: #fff3e0;
+  color: #f57c00;
 }
 
-.stat-text {
-  font-weight: 500;
+.leak-icon.major {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.leak-info {
+  flex: 1;
+}
+
+.leak-severity {
+  font-size: 11px !important;
 }
 
 .floating-add-btn {
   position: fixed;
   bottom: 90px;
   right: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
   z-index: 1000;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .add-button {
-  background: #2196f3;
-  border-radius: 50%;
   width: 56px;
   height: 56px;
+  border-radius: 50%;
+  background: #2196f3;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25);
+  transition: all 0.2s ease;
 }
 
-.floating-add-btn:hover .add-button {
-  transform: scale(1.1);
-  background: #1976d2;
-}
-
-.nav-icon {
-  font-size: 28px;
-  color: white;
-  transition: transform 0.2s ease;
-}
-
-.nav-icon.rotated {
-  transform: rotate(45deg);
-}
-
-.create-popup {
-  position: absolute;
-  bottom: 100%;
-  right: 0;
-  transform: translateY(-10px);
-  background: #1976d2;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  margin-bottom: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.create-popup.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(-5px);
-}
-
-.create-popup:hover {
-  background: #1565c0;
-  transform: translateY(-8px);
-}
-
-.leak-list {
-  margin: 16px 0;
-}
-
-.leak-item {
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-  text-align: left;
-}
-
-.leak-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.leak-location {
-  font-weight: 500;
-  color: #333;
-}
-
-.leak-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.leak-severity {
-  font-size: 0.85rem;
-  padding: 4px 8px;
-  border-radius: 12px;
-}
-
-.leak-severity.minor {
-  background: #fff3e0;
-  color: #f57c00;
-}
-
-.leak-severity.major {
-  background: #ffebee;
-  color: #d32f2f;
-}
-
-.leak-time {
-  font-size: 0.85rem;
-  color: #666;
+.add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(33, 150, 243, 0.3);
 }
 </style>
