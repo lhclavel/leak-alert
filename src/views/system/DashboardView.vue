@@ -5,9 +5,8 @@ import AppLayout from '@/components/layout/AppLayout.vue'
 import CreateView from '@/views/system/CreateView.vue'
 
 // Dashboard state
-const leakStatus = ref('No leaks detected')
-const lastUpdate = ref('2 mins ago')
-const batteryLevel = ref(85)
+const leakStatus = ref('Leaks detected')
+const lastUpdate = ref('10 mins ago')
 
 const router = useRouter()
 
@@ -21,6 +20,23 @@ const handleCreate = () => {
   router.push('/create')
   showCreateButton.value = false
 }
+
+const leaks = ref([
+  {
+    id: 1,
+    location: 'Kitchen Sink',
+    severity: 'Minor',
+    time: '10 mins ago',
+    status: 'active',
+  },
+  {
+    id: 2,
+    location: 'Bathroom Pipe',
+    severity: 'Major',
+    time: '1 hour ago',
+    status: 'pending',
+  },
+])
 </script>
 
 <template>
@@ -42,15 +58,24 @@ const handleCreate = () => {
           <!-- Status Card -->
           <div class="status-card">
             <div class="card-content">
-              <!-- Status Text -->
               <h3 class="status-text">{{ leakStatus }}</h3>
               <p class="last-update">Last updated: {{ lastUpdate }}</p>
 
-              <!-- Quick Stats -->
-              <div class="quick-stats">
-                <div class="stat-item">
-                  <span class="battery-icon">🔋</span>
-                  <span class="stat-text">{{ batteryLevel }}%</span>
+              <!-- Leak List -->
+              <div class="leak-list">
+                <div v-for="leak in leaks" :key="leak.id" class="leak-item">
+                  <div class="leak-header">
+                    <v-icon :color="leak.severity === 'Minor' ? 'warning' : 'error'" class="mr-2">
+                      {{ leak.severity === 'Minor' ? 'mdi-alert' : 'mdi-alert-circle' }}
+                    </v-icon>
+                    <span class="leak-location">{{ leak.location }}</span>
+                  </div>
+                  <div class="leak-details">
+                    <span class="leak-severity" :class="leak.severity.toLowerCase()">
+                      {{ leak.severity }}
+                    </span>
+                    <span class="leak-time">{{ leak.time }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -105,7 +130,7 @@ const handleCreate = () => {
 }
 
 .card-content {
-  padding: 32px;
+  padding: 28px;
   text-align: center;
 }
 
@@ -123,8 +148,8 @@ const handleCreate = () => {
 }
 
 .logo-image {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   max-width: 400px;
   object-fit: contain;
 }
@@ -234,5 +259,55 @@ const handleCreate = () => {
 .create-popup:hover {
   background: #1565c0;
   transform: translateY(-8px);
+}
+
+.leak-list {
+  margin: 16px 0;
+}
+
+.leak-item {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.leak-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.leak-location {
+  font-weight: 500;
+  color: #333;
+}
+
+.leak-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leak-severity {
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.leak-severity.minor {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.leak-severity.major {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.leak-time {
+  font-size: 0.85rem;
+  color: #666;
 }
 </style>
