@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useTheme } from 'vuetify'
 import { useRouter } from 'vue-router'
-
+import AppLayout from '@/components/layout/AppLayout.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
 
 const notifications = ref(true)
@@ -118,45 +118,8 @@ const handleCreate = () => {
         </v-row>
       </v-container>
     </v-main>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-      <button
-        class="nav-btn"
-        :class="{ active: currentTab === 'home' }"
-        @click="setActiveTab('home')"
-      >
-        <v-icon class="nav-home">mdi-home</v-icon>
-      </button>
-
-      <button
-        class="nav-btn add-btn"
-        :class="{ active: currentTab === 'add' }"
-        @click="toggleCreateButton"
-      >
-        <div class="add-button">
-          <span class="nav-icon" :class="{ rotated: showCreateButton }">+</span>
-        </div>
-
-        <!-- Create Button Popup -->
-        <div
-          class="create-popup my-1"
-          :class="{ visible: showCreateButton }"
-          @click.stop="handleCreate"
-        >
-          <span class="create-text">Create</span>
-        </div>
-      </button>
-
-      <button
-        class="nav-btn"
-        :class="{ active: currentTab === 'settings' }"
-        @click="setActiveTab('settings')"
-      >
-        <v-icon class="nav-settings">mdi-cog</v-icon>
-      </button>
-    </div>
   </v-app>
+  <AppLayout />
 </template>
 
 <style scoped>

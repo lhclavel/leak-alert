@@ -1,11 +1,26 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import AppLayout from '@/components/layout/AppLayout.vue'
+import CreateView from '@/views/system/CreateView.vue'
 
 // Dashboard state
 const leakStatus = ref('No leaks detected')
 const lastUpdate = ref('2 mins ago')
 const batteryLevel = ref(85)
+
+const router = useRouter()
+
+const showCreateButton = ref(false)
+
+const toggleCreateButton = () => {
+  showCreateButton.value = !showCreateButton.value
+}
+
+const handleCreate = () => {
+  router.push('/create')
+  showCreateButton.value = false
+}
 </script>
 
 <template>
@@ -42,6 +57,21 @@ const batteryLevel = ref(85)
           </div>
         </div>
       </div>
+
+      <button
+        class="floating-add-btn"
+        :class="{ active: showCreateButton }"
+        @click="toggleCreateButton"
+      >
+        <div class="add-button">
+          <span class="nav-icon" :class="{ rotated: showCreateButton }">+</span>
+        </div>
+
+        <!-- Create Button Popup -->
+        <div class="create-popup" :class="{ visible: showCreateButton }" @click.stop="handleCreate">
+          <span class="create-text">Create</span>
+        </div>
+      </button>
     </template>
   </AppLayout>
 </template>
@@ -135,5 +165,74 @@ const batteryLevel = ref(85)
 
 .stat-text {
   font-weight: 500;
+}
+
+.floating-add-btn {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.add-button {
+  background: #2196f3;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.floating-add-btn:hover .add-button {
+  transform: scale(1.1);
+  background: #1976d2;
+}
+
+.nav-icon {
+  font-size: 28px;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.nav-icon.rotated {
+  transform: rotate(45deg);
+}
+
+.create-popup {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  transform: translateY(-10px);
+  background: #1976d2;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.create-popup.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-5px);
+}
+
+.create-popup:hover {
+  background: #1565c0;
+  transform: translateY(-8px);
 }
 </style>

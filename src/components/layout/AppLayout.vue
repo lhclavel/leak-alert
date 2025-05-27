@@ -49,25 +49,6 @@ const handleCreate = () => {
         </button>
 
         <button
-          class="nav-btn add-btn"
-          :class="{ active: currentTab === 'add' }"
-          @click="toggleCreateButton"
-        >
-          <div class="add-button">
-            <span class="nav-icon" :class="{ rotated: showCreateButton }">+</span>
-          </div>
-
-          <!-- Create Button Popup -->
-          <div
-            class="create-popup my-1"
-            :class="{ visible: showCreateButton }"
-            @click.stop="handleCreate"
-          >
-            <span class="create-text">Create</span>
-          </div>
-        </button>
-
-        <button
           class="nav-btn"
           :class="{ active: currentTab === 'settings' }"
           @click="setActiveTab('settings')"

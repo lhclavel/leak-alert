@@ -1,7 +1,7 @@
 <script setup>
-import AppHeader from '@/components/layout/AppHeader.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import AppLayout from '@/components/layout/AppLayout.vue'
 
 const selectedObject = ref('')
 const description = ref('')
@@ -43,189 +43,153 @@ const handleCreate = () => {
 </script>
 
 <template>
-  <AppHeader />
-
-  <v-container class="pa-4">
-    <!-- Take a picture section -->
-    <div class="mb-4">
-      <div class="d-flex align-center my-4">
-        <v-divider class="flex-grow-1"></v-divider>
-        <span class="mx-1 text-caption">Take</span>
-        <span class="mx-1 text-caption">Picture</span>
-        <v-divider class="flex-grow-1"></v-divider>
-      </div>
-      <v-row>
-        <v-col cols="6">
-          <v-card
-            class="d-flex flex-column align-center justify-center pa-6"
-            height="120"
-            variant="outlined"
-            style="border-style: dashed"
-          >
-            <v-icon size="32" color="grey-darken-1" class="mb-2"> mdi-camera </v-icon>
-            <span class="text-caption text-grey-darken-1">Wide Angle</span>
-          </v-card>
-        </v-col>
-        <v-col cols="6">
-          <v-card
-            class="d-flex flex-column align-center justify-center pa-6"
-            height="120"
-            variant="outlined"
-            style="border-style: dashed"
-          >
-            <v-icon size="32" color="grey-darken-1" class="mb-2"> mdi-camera </v-icon>
-            <span class="text-caption text-grey-darken-1">Close-up</span>
-          </v-card>
-        </v-col>
-      </v-row>
-    </div>
-
-    <!-- Change Location section -->
-    <div class="mb-8">
-      <h2 class="text-h6 font-weight-medium mb-3">Change Location</h2>
-      <v-card class="pa-3" color="grey-lighten-4">
-        <!-- Map placeholder -->
-        <div
-          class="mb-3"
-          style="
-            height: 120px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
-            position: relative;
-            overflow: hidden;
-          "
-        >
-          <!-- Simple map lines -->
-          <div
-            style="
-              position: absolute;
-              top: 8px;
-              left: 8px;
-              right: 8px;
-              height: 2px;
-              background: #ffc107;
-              border-radius: 1px;
-            "
-          ></div>
-          <div
-            style="
-              position: absolute;
-              top: 20px;
-              left: 16px;
-              right: 32px;
-              height: 2px;
-              background: #ffb300;
-              border-radius: 1px;
-            "
-          ></div>
-          <div
-            style="
-              position: absolute;
-              bottom: 16px;
-              left: 12px;
-              width: 6px;
-              height: 6px;
-              background: #f44336;
-              border-radius: 50%;
-            "
-          ></div>
-          <div
-            style="
-              position: absolute;
-              bottom: 24px;
-              right: 16px;
-              width: 2px;
-              height: 12px;
-              background: #2196f3;
-              border-radius: 1px;
-            "
-          ></div>
-        </div>
-
-        <div class="d-flex align-center justify-space-between">
-          <div class="d-flex align-center">
-            <v-icon size="16" color="grey-darken-1" class="mr-2"> mdi-map-marker </v-icon>
-            <span class="text-body-2 text-grey-darken-2">{{ selectedLocation }}</span>
+  <AppLayout>
+    <template #content>
+      <v-container class="pa-4">
+        <!-- Take a picture section -->
+        <div class="mb-4">
+          <div class="d-flex align-center my-4">
+            <v-divider class="flex-grow-1"></v-divider>
+            <span class="mx-1 text-caption">Take</span>
+            <span class="mx-1 text-caption">Picture</span>
+            <v-divider class="flex-grow-1"></v-divider>
           </div>
-          <v-icon size="16" color="grey-darken-1"> mdi-chevron-down </v-icon>
+          <v-row>
+            <v-col cols="6">
+              <v-card
+                class="d-flex flex-column align-center justify-center pa-6"
+                height="120"
+                variant="outlined"
+                style="border-style: dashed"
+              >
+                <v-icon size="32" color="grey-darken-1" class="mb-2"> mdi-camera </v-icon>
+                <span class="text-caption text-grey-darken-1">Wide Angle</span>
+              </v-card>
+            </v-col>
+            <v-col cols="6">
+              <v-card
+                class="d-flex flex-column align-center justify-center pa-6"
+                height="120"
+                variant="outlined"
+                style="border-style: dashed"
+              >
+                <v-icon size="32" color="grey-darken-1" class="mb-2"> mdi-camera </v-icon>
+                <span class="text-caption text-grey-darken-1">Close-up</span>
+              </v-card>
+            </v-col>
+          </v-row>
         </div>
-      </v-card>
-    </div>
 
-    <!-- General Information section -->
-    <div class="mb-8">
-      <h2 class="text-h6 font-weight-medium mb-3">General Information</h2>
-      <div class="mb-4">
-        <v-select
-          v-model="selectedObject"
-          :items="objectOptions"
-          label="Select Options"
-          variant="outlined"
-          density="comfortable"
-          placeholder="Select an option"
-        ></v-select>
-      </div>
+        <!-- Change Location section -->
+        <div class="mb-8">
+          <h2 class="text-h6 font-weight-medium mb-3">Change Location</h2>
+          <v-card class="pa-3" color="grey-lighten-4">
+            <!-- Map placeholder -->
+            <div
+              class="mb-3"
+              style="
+                height: 120px;
+                border-radius: 8px;
+                background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+                position: relative;
+                overflow: hidden;
+              "
+            >
+              <!-- Simple map lines -->
+              <div
+                style="
+                  position: absolute;
+                  top: 8px;
+                  left: 8px;
+                  right: 8px;
+                  height: 2px;
+                  background: #ffc107;
+                  border-radius: 1px;
+                "
+              ></div>
+              <div
+                style="
+                  position: absolute;
+                  top: 20px;
+                  left: 16px;
+                  right: 32px;
+                  height: 2px;
+                  background: #ffb300;
+                  border-radius: 1px;
+                "
+              ></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 16px;
+                  left: 12px;
+                  width: 6px;
+                  height: 6px;
+                  background: #f44336;
+                  border-radius: 50%;
+                "
+              ></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 24px;
+                  right: 16px;
+                  width: 2px;
+                  height: 12px;
+                  background: #2196f3;
+                  border-radius: 1px;
+                "
+              ></div>
+            </div>
 
-      <v-textarea
-        v-model="description"
-        label="Description"
-        variant="outlined"
-        density="comfortable"
-        placeholder="Enter description..."
-        rows="3"
-        no-resize
-      ></v-textarea>
-    </div>
+            <div class="d-flex align-center justify-space-between">
+              <div class="d-flex align-center">
+                <v-icon size="16" color="grey-darken-1" class="mr-2"> mdi-map-marker </v-icon>
+                <span class="text-body-2 text-grey-darken-2">{{ selectedLocation }}</span>
+              </div>
+              <v-icon size="16" color="grey-darken-1"> mdi-chevron-down </v-icon>
+            </div>
+          </v-card>
+        </div>
 
-    <!-- Submit button -->
-    <v-btn
-      @click="handleSubmit"
-      color="primary"
-      size="large"
-      block
-      class="text-none font-weight-medium"
-    >
-      Submit Report
-    </v-btn>
-  </v-container>
+        <!-- General Information section -->
+        <div class="mb-8">
+          <h2 class="text-h6 font-weight-medium mb-3">General Information</h2>
+          <div class="mb-4">
+            <v-select
+              v-model="selectedObject"
+              :items="objectOptions"
+              label="Select Options"
+              variant="outlined"
+              density="comfortable"
+              placeholder="Select an option"
+            ></v-select>
+          </div>
 
-  <!-- Bottom Navigation -->
-  <div class="bottom-nav">
-    <button
-      class="nav-btn"
-      :class="{ active: currentTab === 'home' }"
-      @click="setActiveTab('home')"
-    >
-      <v-icon class="nav-home">mdi-home</v-icon>
-    </button>
+          <v-textarea
+            v-model="description"
+            label="Description"
+            variant="outlined"
+            density="comfortable"
+            placeholder="Enter description..."
+            rows="3"
+            no-resize
+          ></v-textarea>
+        </div>
 
-    <button
-      class="nav-btn add-btn"
-      :class="{ active: currentTab === 'add' }"
-      @click="toggleCreateButton"
-    >
-      <div class="add-button">
-        <span class="nav-icon" :class="{ rotated: showCreateButton }">+</span>
-      </div>
-
-      <!-- Create Button Popup -->
-      <div
-        class="create-popup my-1"
-        :class="{ visible: showCreateButton }"
-        @click.stop="handleCreate"
-      >
-        <span class="create-text">Create</span>
-      </div>
-    </button>
-
-    <button
-      class="nav-btn"
-      :class="{ active: currentTab === 'settings' }"
-      @click="setActiveTab('settings')"
-    >
-      <v-icon class="nav-settings">mdi-cog</v-icon>
-    </button>
-  </div>
+        <!-- Submit button -->
+        <v-btn
+          @click="handleSubmit"
+          color="primary"
+          size="large"
+          block
+          class="text-none font-weight-medium"
+        >
+          Submit Report
+        </v-btn>
+      </v-container>
+    </template>
+  </AppLayout>
 </template>
 
 <style scoped>
