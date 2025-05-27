@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 const isSidebarOpen = ref(false)
+const fileInput = ref(null)
 
 // Toggle sidebar menu
 function toggleSidebar() {
@@ -11,6 +12,27 @@ function toggleSidebar() {
 // Handle logout
 function logout() {
   window.location.href = '/login'
+}
+
+const user = {
+  name: 'John Doe',
+  email: 'johndoe@gmail.com',
+  avatar: '/path/to/your/avatar.jpg',
+}
+
+function triggerFileUpload() {
+  fileInput.value.click()
+}
+
+function onFileChange(event) {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      user.avatar = e.target.result
+    }
+    reader.readAsDataURL(file)
+  }
 }
 </script>
 
@@ -22,9 +44,29 @@ function logout() {
       <!-- Sidebar menu -->
       <div :class="['sidebar', { 'sidebar-open': isSidebarOpen }]">
         <ul>
-          <li>
-            <a href="#"> <span class="mdi mdi-account-circle-outline me-2"></span>Profile</a>
-          </li>
+          <!-- Profile Section -->
+          <div class="profile-section">
+            <div class="profile-info">
+              <div class="avatar-container" @click="triggerFileUpload">
+                <v-avatar size="80">
+                  <v-img :src="user.avatar" alt="Profile"></v-img>
+                  <div class="change-photo-overlay">
+                    <v-icon color="white" size="24">mdi-camera</v-icon>
+                  </div>
+                </v-avatar>
+                <input
+                  ref="fileInput"
+                  type="file"
+                  accept="image/*"
+                  @change="onFileChange"
+                  style="display: none"
+                />
+              </div>
+              <h3 class="username">{{ user.name }}</h3>
+              <p class="email">{{ user.email }}</p>
+              <v-btn variant="flat" class="edit-btn">Edit Profile</v-btn>
+            </div>
+          </div>
           <li>
             <a href="#"> <span class="mdi mdi-bell-outline me-2"></span>Notifications</a>
           </li>
@@ -79,6 +121,70 @@ function logout() {
   z-index: 1101; /* Higher than the sidebar */
 }
 
+.profile-section {
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.verify-icon {
+  position: absolute;
+  right: calc(50% - 45px);
+  bottom: 85px;
+  background: #263b7e;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.profile-section h3 {
+  margin: 10px 0 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.profile-section p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.change-photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 1102; /* Higher than sidebar and menu button */
+}
+
+.avatar-container {
+  position: relative;
+  cursor: pointer;
+  z-index: 1102; /* Higher than sidebar and menu button */
+}
+
+.avatar-container:hover .change-photo-overlay {
+  opacity: 1;
+}
 /* Sidebar styles */
 .sidebar {
   position: fixed; /* Make it fixed to cover the screen */
@@ -89,8 +195,7 @@ function logout() {
   background: #2196f3;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
   padding: 50px 0 20px; /* Add padding at the top to push content down */
-  z-index: 1000; /* Lower than the menu button */
-  border-radius: 0; /* Remove border-radius for full coverage */
+  z-index: 1100; /* Lower than the menu button */
   transition: right 0.3s ease; /* Add smooth transition */
 }
 
