@@ -43,6 +43,9 @@ function onFileChange(event) {
       <button class="menu-btn" @click="toggleSidebar" aria-label="Menu">☰</button>
       <!-- Sidebar menu -->
       <div :class="['sidebar', { 'sidebar-open': isSidebarOpen }]">
+        <button class="close-btn" @click="toggleSidebar">
+          <v-icon>mdi-chevron-left</v-icon>
+        </button>
         <ul>
           <!-- Profile Section -->
           <div class="profile-section">
@@ -194,6 +197,7 @@ function onFileChange(event) {
   padding: 50px 0 20px; /* Add padding at the top to push content down */
   z-index: 1100; /* Lower than the menu button */
   transition: right 0.3s ease; /* Add smooth transition */
+  padding-top: 70px; /* Increased to accommodate close button */
 }
 
 .sidebar ul {
@@ -228,6 +232,25 @@ function onFileChange(event) {
 }
 /* Sidebar open state */
 .sidebar-open {
-  right: 0; /* Slide into view */
+  right: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  background: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.close-btn:hover {
+  transform: translateX(-4px);
 }
 </style>
